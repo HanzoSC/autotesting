@@ -1,0 +1,10 @@
+{
+  "firstValue": "1010",
+  "firstBase": 2,
+  "secondValue": "7",
+  "secondBase": 10,
+  "operation": "ADD",
+  "resultValue": "17"
+}
+
+
