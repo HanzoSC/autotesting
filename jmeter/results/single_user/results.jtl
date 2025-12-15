@@ -1,0 +1,21 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1762082384235,123,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,109,0,83
+1762082385814,11,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,11,0,0
+1762082386889,9,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,9,0,0
+1762082388365,6,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,6,0,0
+1762082389391,7,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,330,258,1,1,http://localhost:8080/api/calculations/compute,7,0,0
+1762082390582,11,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,10,0,0
+1762082392023,26,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,26,0,0
+1762082393513,9,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,9,0,0
+1762082394727,10,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,330,258,1,1,http://localhost:8080/api/calculations/compute,10,0,0
+1762082396152,11,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,11,0,0
+1762082397390,7,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,7,0,0
+1762082398806,7,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,7,0,0
+1762082400143,12,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,11,0,0
+1762082401225,13,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,12,0,0
+1762082402370,6,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,6,0,0
+1762082403549,8,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,8,0,0
+1762082404765,7,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,6,0,0
+1762082405927,7,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,7,0,0
+1762082407261,8,POST /api/calculations/compute - ADD,200,,Thread Group 1-1,text,true,,331,258,1,1,http://localhost:8080/api/calculations/compute,8,0,0
+1762082408501,7,GET /api/calculations,200,,Thread Group 1-1,text,true,,174,180,1,1,http://localhost:8080/api/calculations?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59,7,0,0

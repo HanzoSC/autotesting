@@ -1,0 +1,37 @@
+{
+	"id": "dev-env",
+	"name": "Dev Environment",
+	"values": [
+		{
+			"key": "protocol",
+			"value": "https",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "host",
+			"value": "dev-calculator.example.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "port",
+			"value": "443",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "baseUrl",
+			"value": "{{protocol}}://{{host}}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "apiPath",
+			"value": "/api/calculations",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment"
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "firstValue": "A",
+    "firstBase": 16,
+    "secondValue": "10",
+    "secondBase": 10,
+    "operation": "ADD",
+    "resultValue": "20",
+    "executedAt": "2024-01-01T12:00:00"
+  }
+]
+
+

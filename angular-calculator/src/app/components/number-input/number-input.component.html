@@ -1,0 +1,12 @@
+<input
+  type="text"
+  [value]="value"
+  [disabled]="disabled"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  class="number-input"
+  [placeholder]="'Введите число в ' + base + '-й системе (' + allowedChars + ')'"
+/>
+<div *ngIf="base" class="input-hint">
+  Допустимые символы: {{ allowedChars }}
+</div>

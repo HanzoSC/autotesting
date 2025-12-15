@@ -1,0 +1,678 @@
+{
+	"info": {
+		"_postman_id": "calculator-api-collection",
+		"name": "Calculator API Collection",
+		"description": "Коллекция для тестирования API калькулятора с поддержкой различных систем счисления",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Pre-request script для формирования URL на основе environment",
+					"const protocol = pm.environment.get('protocol');",
+					"const host = pm.environment.get('host');",
+					"const port = pm.environment.get('port');",
+					"const apiPath = pm.environment.get('apiPath');",
+					"",
+					"// Формируем полный URL",
+					"let baseUrl;",
+					"if (port && port !== '443' && port !== '80') {",
+					"    baseUrl = `${protocol}://${host}:${port}${apiPath}`;",
+					"} else {",
+					"    baseUrl = `${protocol}://${host}${apiPath}`;",
+					"}",
+					"",
+					"// Устанавливаем переменную для использования в запросах",
+					"pm.environment.set('fullApiUrl', baseUrl);",
+					"",
+					"console.log('Generated API URL:', baseUrl);"
+				]
+			}
+		}
+	],
+	"item": [
+		{
+			"name": "Addition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Позитивные тесты",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Response has required fields', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('firstValue');",
+							"    pm.expect(jsonData).to.have.property('secondValue');",
+							"    pm.expect(jsonData).to.have.property('operation');",
+							"    pm.expect(jsonData).to.have.property('resultValue');",
+							"    pm.expect(jsonData).to.have.property('executedAt');",
+							"});",
+							"",
+							"pm.test('Operation is ADD', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.operation).to.eql('ADD');",
+							"});",
+							"",
+							"pm.test('Result is correct for decimal addition', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultValue).to.eql('15');",
+							"});",
+							"",
+							"pm.test('Response time is less than 1000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Негативные тесты",
+							"pm.test('Invalid input returns error', function () {",
+							"    if (pm.response.code !== 200) {",
+							"        pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "ADD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Тест сложения двух чисел в десятичной системе счисления"
+			},
+			"response": []
+		},
+		{
+			"name": "Subtraction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Позитивные тесты",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Operation is SUBTRACT', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.operation).to.eql('SUBTRACT');",
+							"});",
+							"",
+							"pm.test('Result is correct for decimal subtraction', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultValue).to.eql('5');",
+							"});",
+							"",
+							"pm.test('Response time is less than 1000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Негативные тесты",
+							"pm.test('Invalid input returns error', function () {",
+							"    if (pm.response.code !== 200) {",
+							"        pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "SUBTRACT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Тест вычитания двух чисел в десятичной системе счисления"
+			},
+			"response": []
+		},
+		{
+			"name": "Multiplication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Позитивные тесты",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Operation is MULTIPLY', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.operation).to.eql('MULTIPLY');",
+							"});",
+							"",
+							"pm.test('Result is correct for decimal multiplication', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultValue).to.eql('50');",
+							"});",
+							"",
+							"pm.test('Response time is less than 1000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Негативные тесты",
+							"pm.test('Invalid input returns error', function () {",
+							"    if (pm.response.code !== 200) {",
+							"        pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "MULTIPLY",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Тест умножения двух чисел в десятичной системе счисления"
+			},
+			"response": []
+		},
+		{
+			"name": "Division",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Позитивные тесты",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Operation is DIVIDE', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.operation).to.eql('DIVIDE');",
+							"});",
+							"",
+							"pm.test('Result is correct for decimal division', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultValue).to.eql('2');",
+							"});",
+							"",
+							"pm.test('Response time is less than 1000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Негативные тесты",
+							"pm.test('Invalid input returns error', function () {",
+							"    if (pm.response.code !== 200) {",
+							"        pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "DIVIDE",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Тест деления двух чисел в десятичной системе счисления"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Calculations History",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Позитивные тесты",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Response is an array', function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"pm.test('Response time is less than 1000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Проверяем структуру элементов массива",
+							"pm.test('Array elements have required fields', function () {",
+							"    const jsonData = pm.response.json();",
+							"    if (jsonData.length > 0) {",
+							"        const firstElement = jsonData[0];",
+							"        pm.expect(firstElement).to.have.property('id');",
+							"        pm.expect(firstElement).to.have.property('firstValue');",
+							"        pm.expect(firstElement).to.have.property('secondValue');",
+							"        pm.expect(firstElement).to.have.property('operation');",
+							"        pm.expect(firstElement).to.have.property('resultValue');",
+							"        pm.expect(firstElement).to.have.property('executedAt');",
+							"    }",
+							"});",
+							"",
+							"// Негативные тесты",
+							"pm.test('Invalid date range returns error', function () {",
+							"    if (pm.response.code !== 200) {",
+							"        pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{fullApiUrl}}?from=2024-01-01T00:00:00&to=2024-12-31T23:59:59",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2024-01-01T00:00:00"
+						},
+						{
+							"key": "to",
+							"value": "2024-12-31T23:59:59"
+						}
+					]
+				},
+				"description": "Получение истории всех вычислений за определенный период времени"
+			},
+			"response": []
+		},
+		{
+			"name": "Load Test - Sequential 1000 iterations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тесты для нагрузочного тестирования",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Response time is acceptable', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"// Логируем время ответа для анализа",
+							"console.log('Response time:', pm.response.responseTime + 'ms');",
+							"",
+							"// Сохраняем статистику",
+							"const currentIteration = pm.info.iteration + 1;",
+							"if (!pm.globals.get('totalResponseTime')) {",
+							"    pm.globals.set('totalResponseTime', 0);",
+							"    pm.globals.set('maxResponseTime', 0);",
+							"    pm.globals.set('minResponseTime', Infinity);",
+							"}",
+							"",
+							"const totalTime = pm.globals.get('totalResponseTime') + pm.response.responseTime;",
+							"const maxTime = Math.max(pm.globals.get('maxResponseTime'), pm.response.responseTime);",
+							"const minTime = Math.min(pm.globals.get('minResponseTime'), pm.response.responseTime);",
+							"",
+							"pm.globals.set('totalResponseTime', totalTime);",
+							"pm.globals.set('maxResponseTime', maxTime);",
+							"pm.globals.set('minResponseTime', minTime);",
+							"",
+							"// На последней итерации выводим статистику",
+							"if (currentIteration === 1000) {",
+							"    const avgTime = totalTime / 1000;",
+							"    console.log('=== LOAD TEST RESULTS ===');",
+							"    console.log('Total iterations: 1000');",
+							"    console.log('Average response time:', avgTime.toFixed(2) + 'ms');",
+							"    console.log('Max response time:', maxTime + 'ms');",
+							"    console.log('Min response time:', minTime + 'ms');",
+							"    console.log('========================');",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "ADD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Нагрузочный тест с последовательной отправкой 1000 запросов"
+			},
+			"response": []
+		},
+		{
+			"name": "Load Test - Parallel 1000 iterations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тесты для параллельного нагрузочного тестирования",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Response time is acceptable', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"// Логируем время ответа для анализа",
+							"console.log('Parallel response time:', pm.response.responseTime + 'ms');",
+							"",
+							"// Сохраняем статистику для параллельного теста",
+							"const currentIteration = pm.info.iteration + 1;",
+							"if (!pm.globals.get('parallelTotalResponseTime')) {",
+							"    pm.globals.set('parallelTotalResponseTime', 0);",
+							"    pm.globals.set('parallelMaxResponseTime', 0);",
+							"    pm.globals.set('parallelMinResponseTime', Infinity);",
+							"}",
+							"",
+							"const totalTime = pm.globals.get('parallelTotalResponseTime') + pm.response.responseTime;",
+							"const maxTime = Math.max(pm.globals.get('parallelMaxResponseTime'), pm.response.responseTime);",
+							"const minTime = Math.min(pm.globals.get('parallelMinResponseTime'), pm.response.responseTime);",
+							"",
+							"pm.globals.set('parallelTotalResponseTime', totalTime);",
+							"pm.globals.set('parallelMaxResponseTime', maxTime);",
+							"pm.globals.set('parallelMinResponseTime', minTime);",
+							"",
+							"// На последней итерации выводим статистику",
+							"if (currentIteration === 1000) {",
+							"    const avgTime = totalTime / 1000;",
+							"    console.log('=== PARALLEL LOAD TEST RESULTS ===');",
+							"    console.log('Total iterations: 1000');",
+							"    console.log('Average response time:', avgTime.toFixed(2) + 'ms');",
+							"    console.log('Max response time:', maxTime + 'ms');",
+							"    console.log('Min response time:', minTime + 'ms');",
+							"    console.log('=====================================');",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "a",
+							"value": "{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "aBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "b",
+							"value": "{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "bBase",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "op",
+							"value": "ADD",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{fullApiUrl}}/compute",
+					"host": [
+						"{{fullApiUrl}}"
+					],
+					"path": [
+						"compute"
+					]
+				},
+				"description": "Нагрузочный тест с параллельной отправкой 1000 запросов"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "{{protocol}}://{{host}}:{{port}}",
+			"type": "string"
+		}
+	]
+}
